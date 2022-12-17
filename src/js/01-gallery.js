@@ -5,22 +5,21 @@ import SimpleLightbox from "simplelightbox";
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryContainer = document.querySelector('.gallery');
-const galleryMarkup = createGalleryElementMarkup(galleryItems);
-    
 
 function createGalleryElementMarkup() {
-    const galleryMarkup = galleryItems.map(
+    const galleryMarkup = galleryItems.map(({preview, description, original}) => (
         `
         <div class="gallery">
         <a class='gallery__item' href='${original}'>
                 <img
                 class='gallery__image'
-                data-src='${preview}'
+                src='${preview}'
                 alt='${description}'
                 loading='lazy'
                 />
                 </a>
-                </div>`)
+                </div>`
+         ))
         .join('');
     
     galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
@@ -28,11 +27,11 @@ function createGalleryElementMarkup() {
 
 createGalleryElementMarkup();
 
+
 galleryContainer.addEventListener('click', onGalleryContainerClick)
 
 function onGalleryContainerClick(evt) {
     evt.preventDefault();
-    
 };
 
 new SimpleLightbox('.gallery a', {
@@ -42,6 +41,3 @@ new SimpleLightbox('.gallery a', {
  });
 
 console.log(galleryItems);
-
-
-
